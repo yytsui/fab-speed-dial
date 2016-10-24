@@ -35,6 +35,7 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
         final ImageView androidImage = (ImageView) findViewById(R.id.androidImage);
 
 
+        /*
         FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
         fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
@@ -43,7 +44,7 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
                         menuItem.getTitle()), Snackbar.LENGTH_SHORT).show();
                 return false;
             }
-        });
+        });*/
 
         ToggleButton toggleButton = (ToggleButton)findViewById(R.id.toggleButton);
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
