@@ -35,12 +35,6 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="200pt"
-        android:layout_height="200pt"
-        android:src="@mipmap/ic_launcher"
-        android:background="@android:color/darker_gray" />
 
     <io.github.yavski.fabspeeddial.FabSpeedDial
         android:id="@+id/fab_speed_dial"
@@ -52,5 +46,23 @@
         app:miniFabBackgroundTint="@android:color/white"
         app:miniFabDrawableTint="?attr/colorPrimaryDark"
         app:miniFabTitleTextColor="?attr/colorPrimaryDark" />
+
+    <ImageView
+        android:id="@+id/androidImage"
+        android:layout_width="147dp"
+        android:layout_height="163dp"
+        android:src="@mipmap/ic_launcher"
+        android:background="@android:color/darker_gray"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center_vertical" />
+
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/toggleButton"
+        android:layout_gravity="left|center_horizontal"
+        android:textOn="Show"
+        android:textOff="Hide"/>
 
 </android.support.design.widget.CoordinatorLayout>
