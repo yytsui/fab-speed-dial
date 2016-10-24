@@ -65,7 +65,8 @@
         app:fabMenu="@menu/menu_circular_reveal"
         app:miniFabBackgroundTint="@android:color/white"
         app:miniFabDrawableTint="?attr/colorPrimaryDark"
-        app:miniFabTitleTextColor="?attr/colorPrimaryDark" />
+        app:miniFabTitleTextColor="?attr/colorPrimaryDark"
+        app:touchGuard="false"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
