@@ -35,16 +35,21 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
         final ImageView androidImage = (ImageView) findViewById(R.id.androidImage);
 
 
-        /*
+
         FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
         fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {
-                Snackbar.make(findViewById(R.id.rootView), getString(R.string.selected_menu_item,
-                        menuItem.getTitle()), Snackbar.LENGTH_SHORT).show();
+                switch (menuItem.getItemId()){
+                    case R.id.action_hide:
+                        hide(androidImage);
+                        break;
+                    case R.id.action_show:
+                        show(androidImage);
+                }
                 return false;
             }
-        });*/
+        });
 
         ToggleButton toggleButton = (ToggleButton)findViewById(R.id.toggleButton);
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
