@@ -83,6 +83,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             case 4:
                 newActivity = MenuItemsSampleActivity.class;
                 break;
+            case 5:
+                newActivity = CirularRevealAcitivity.class;
+                break;
         }
         Intent i = new Intent(HomeActivity.this, newActivity);
         i.putExtra(BaseSampleActivity.TITLE, titles[position]);
