@@ -46,15 +46,6 @@
         android:textOff="Hide"
         android:layout_gravity="bottom|left" />
 
-    <ImageView
-        android:id="@+id/androidImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher"
-        android:background="@android:color/darker_gray"
-        android:adjustViewBounds="true"
-        android:layout_gravity="center_vertical"
-        android:visibility="visible" />
 
     <io.github.yavski.fabspeeddial.FabSpeedDial
         android:id="@+id/fab_speed_dial"
@@ -67,6 +58,22 @@
         app:miniFabDrawableTint="?attr/colorPrimaryDark"
         app:miniFabTitleTextColor="?attr/colorPrimaryDark"
         app:touchGuard="true"/>
+
+    <ImageView
+        android:id="@+id/androidImage"
+        android:layout_width="200pt"
+        android:layout_height="200pt"
+        android:src="@mipmap/ic_launcher"
+        android:background="@android:color/darker_gray"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center_vertical"
+        android:visibility="visible" />
+
+
+
+
+
+
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -3,11 +3,11 @@ package io.github.yavski.fabspeeddial.samples;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.os.Build;
+
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -16,16 +16,13 @@ import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 
-import java.io.IOException;
+
 
 import io.github.yavski.fabmenu.samples.R;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+
+
 
 /**
  * Created by yiyangtsui on 2016-10-24.
@@ -34,7 +31,7 @@ import okhttp3.Response;
 public class CirularRevealAcitivity extends BaseSampleActivity {
 
 
-    OkHttpClient client;
+
     ImageView androidImage;
 
     @Override
@@ -49,27 +46,6 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
 
         androidImage = (ImageView) findViewById(R.id.androidImage);
 
-
-
-        final String url =  "http://httpbin.org/html";
-        client = new OkHttpClient();
-
-        FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
-        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
-            @Override
-            public boolean onMenuItemSelected(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.action_hide:
-                        hide(androidImage);
-                        break;
-                    case R.id.action_show:
-                        getRemoteResource();
-                        break;
-                }
-                return false;
-            }
-        });
-
         ToggleButton toggleButton = (ToggleButton)findViewById(R.id.toggleButton);
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -80,6 +56,24 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
                     show(androidImage);
             }
         });
+
+
+        FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.action_hide:
+                        hide(androidImage);
+                        break;
+                    case R.id.action_show:
+                        show(androidImage);
+                        break;
+                }
+                return false;
+            }
+        });
+
 
     }
 
@@ -132,26 +126,5 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
         anim.start();
     }
 
-    public void getRemoteResource() {
-        Request request = new Request.Builder().url("http://httpbin.org/html").build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("OKResponse", response.toString());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        show(androidImage);
-                    }
-                });
-            }
-        });
-    }
 
 }
