@@ -7,12 +7,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import io.github.yavski.fabmenu.samples.R;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
@@ -23,8 +31,12 @@ import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
  */
 
 public class CirularRevealAcitivity extends BaseSampleActivity {
+
+    RequestQueue mRequestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circular_reveal
 
@@ -36,6 +48,21 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
 
 
 
+        final String url =  "http://httpbin.org/html";
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        show(androidImage);
+                        Log.d("ResponseContent", response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("CirculaRevealActivity",error.getMessage());
+            }
+        });
+
         FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
         fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
@@ -45,7 +72,8 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
                         hide(androidImage);
                         break;
                     case R.id.action_show:
-                        show(androidImage);
+                        mRequestQueue.add(stringRequest);
+                        break;
                 }
                 return false;
             }
