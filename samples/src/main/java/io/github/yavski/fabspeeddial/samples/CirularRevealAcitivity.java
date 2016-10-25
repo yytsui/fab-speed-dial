@@ -15,16 +15,17 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
+import java.io.IOException;
 
 import io.github.yavski.fabmenu.samples.R;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by yiyangtsui on 2016-10-24.
@@ -32,11 +33,13 @@ import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
 public class CirularRevealAcitivity extends BaseSampleActivity {
 
-    RequestQueue mRequestQueue;
+
+    OkHttpClient client;
+    ImageView androidImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circular_reveal
 
@@ -44,24 +47,12 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final ImageView androidImage = (ImageView) findViewById(R.id.androidImage);
+        androidImage = (ImageView) findViewById(R.id.androidImage);
 
 
 
         final String url =  "http://httpbin.org/html";
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        show(androidImage);
-                        Log.d("ResponseContent", response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("CirculaRevealActivity",error.getMessage());
-            }
-        });
+        client = new OkHttpClient();
 
         FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
         fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
@@ -72,7 +63,7 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
                         hide(androidImage);
                         break;
                     case R.id.action_show:
-                        mRequestQueue.add(stringRequest);
+                        getRemoteResource();
                         break;
                 }
                 return false;
@@ -139,6 +130,28 @@ public class CirularRevealAcitivity extends BaseSampleActivity {
 
         // start the animation
         anim.start();
+    }
+
+    public void getRemoteResource() {
+        Request request = new Request.Builder().url("http://httpbin.org/html").build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("OKResponse", response.toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        show(androidImage);
+                    }
+                });
+            }
+        });
     }
 
 }
